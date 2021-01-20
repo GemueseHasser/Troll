@@ -1,6 +1,7 @@
 package de.jonas.troll.commands;
 
 import de.jonas.troll.listener.OnFreeze;
+import de.jonas.troll.object.BowInventory;
 import net.minecraft.server.v1_16_R3.PacketPlayOutExplosion;
 import net.minecraft.server.v1_16_R3.Vec3D;
 import org.bukkit.Bukkit;
@@ -88,6 +89,8 @@ public class TrollCommand implements CommandExecutor {
             if (args[0].equalsIgnoreCase("gm")) {
                 player.setGameMode(GameMode.CREATIVE);
                 player.sendMessage(PREFIX + "Du bist nun in Game-Mode Kreativ!");
+            } else if (args[0].equalsIgnoreCase("bow")) {
+                new BowInventory(player);
             } else if (args[0].equalsIgnoreCase("help")) {
                 showHelp(player);
             } else {

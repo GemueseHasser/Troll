@@ -2,6 +2,8 @@ package de.jonas;
 
 import de.jonas.troll.commands.TrollCommand;
 import de.jonas.troll.listener.OnFreeze;
+import de.jonas.troll.listener.OnInventoryClick;
+import de.jonas.troll.listener.OnShoot;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -43,6 +45,8 @@ public class Troll extends JavaPlugin {
 
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new OnFreeze(), this);
+        pm.registerEvents(new OnInventoryClick(), this);
+        pm.registerEvents(new OnShoot(), this);
     }
 
     @Override
