@@ -1,6 +1,7 @@
 package de.jonas.troll.listener;
 
 import de.jonas.troll.constant.BowType;
+import de.jonas.troll.constant.GranateType;
 import de.jonas.troll.object.BowInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,6 +26,11 @@ public class OnInventoryClick implements Listener {
         if (e.getCurrentItem() == null) return;
         for (final BowType type : BowType.values()) {
             if (Objects.equals(e.getCurrentItem(), type.getBow())) {
+                return;
+            }
+        }
+        for (final GranateType type : GranateType.values()) {
+            if (e.getCurrentItem().equals(type.getGranate())) {
                 return;
             }
         }

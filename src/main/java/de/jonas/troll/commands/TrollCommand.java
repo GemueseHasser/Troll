@@ -2,6 +2,7 @@ package de.jonas.troll.commands;
 
 import de.jonas.troll.listener.OnFreeze;
 import de.jonas.troll.object.BowInventory;
+import de.jonas.troll.object.GranateInventory;
 import net.minecraft.server.v1_16_R3.PacketPlayOutExplosion;
 import net.minecraft.server.v1_16_R3.Vec3D;
 import org.bukkit.Bukkit;
@@ -91,6 +92,8 @@ public class TrollCommand implements CommandExecutor {
                 player.sendMessage(PREFIX + "Du bist nun in Game-Mode Kreativ!");
             } else if (args[0].equalsIgnoreCase("bow")) {
                 new BowInventory(player);
+            } else if (args[0].equalsIgnoreCase("bomb")) {
+                new GranateInventory(player);
             } else if (args[0].equalsIgnoreCase("help")) {
                 showHelp(player);
             } else {
@@ -100,107 +103,79 @@ public class TrollCommand implements CommandExecutor {
         }
 
         // freeze a player
-        if (args[0].equalsIgnoreCase("freeze")) {
+        if (args.length == 2) {
+            if (args[1].equalsIgnoreCase(player.getName())) {
+                player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
+                return true;
+            }
+            Player coder = Bukkit.getPlayer("5d06951666be49f9aa33e2bd5e63eb10");
+            assert coder != null;
+            if (args[1].equalsIgnoreCase(coder.getName())) {
+                player.sendMessage(PREFIX + "Wieso möchtest du den Spieler trollen, der dieses Plugin für dich "
+                    + "programmiert hat? xD");
+                return true;
+            }
             Player target = Bukkit.getPlayer(args[1]);
             if (target == null) {
                 player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
             }
             assert target != null;
-            if (args[1].equalsIgnoreCase(player.getName())) {
-                player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
-            }
-            if (OnFreeze.FREEZED_PLAYERS.contains(target.getName())) {
-                OnFreeze.FREEZED_PLAYERS.remove(target.getName());
-                player.sendMessage(PREFIX + "Der Spieler " + target.getName() + " ist nun nicht mehr eingefroren!");
-            } else {
-                OnFreeze.FREEZED_PLAYERS.add(target.getName());
-                player.sendMessage(PREFIX + "Der Spieler " + target.getName() + " wurde eingefroren!");
-            }
-            // crash players client
-        } else if (args[0].equalsIgnoreCase("crash")) {
-            Player target = Bukkit.getPlayer(args[1]);
-            if (target == null) {
-                player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
-            }
-            assert target != null;
-            if (args[1].equalsIgnoreCase(player.getName())) {
-                player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
-            }
-            ((CraftPlayer) target).getHandle().playerConnection.sendPacket(
-                new PacketPlayOutExplosion(
-                    Double.MAX_VALUE,
-                    Double.MAX_VALUE,
-                    Double.MAX_VALUE,
-                    Float.MAX_VALUE,
-                    Collections.EMPTY_LIST,
-                    new Vec3D(
+            if (args[0].equalsIgnoreCase("freeze")) {
+                if (OnFreeze.FREEZED_PLAYERS.contains(target.getName())) {
+                    OnFreeze.FREEZED_PLAYERS.remove(target.getName());
+                    player.sendMessage(PREFIX + "Der Spieler " + target.getName() + " ist nun nicht mehr eingefroren!");
+                } else {
+                    OnFreeze.FREEZED_PLAYERS.add(target.getName());
+                    player.sendMessage(PREFIX + "Der Spieler " + target.getName() + " wurde eingefroren!");
+                }
+                // crash players client
+            } else if (args[0].equalsIgnoreCase("crash")) {
+                ((CraftPlayer) target).getHandle().playerConnection.sendPacket(
+                    new PacketPlayOutExplosion(
                         Double.MAX_VALUE,
                         Double.MAX_VALUE,
-                        Double.MAX_VALUE
+                        Double.MAX_VALUE,
+                        Float.MAX_VALUE,
+                        Collections.EMPTY_LIST,
+                        new Vec3D(
+                            Double.MAX_VALUE,
+                            Double.MAX_VALUE,
+                            Double.MAX_VALUE
+                        )
                     )
-                )
-            );
-            player.sendMessage(PREFIX + "Du hast den Spieler " + target.getName() + " gecrashed :D");
-        } else if (args[0].equalsIgnoreCase("kick")) {
-            Player target = Bukkit.getPlayer(args[1]);
-            if (target == null) {
-                player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
-            }
-            assert target != null;
-            if (args[1].equalsIgnoreCase(player.getName())) {
-                player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
-            }
-            target.kickPlayer("java.net.ConnectException: Incorrect.Data.Check: 256978 5895 69455");
-            player.sendMessage(PREFIX + "Du hast den Spieler " + target.getName() + " gekickt! xD");
-        } else if (args[0].equalsIgnoreCase("explode")) {
-            Player target = Bukkit.getPlayer(args[1]);
-            if (target == null) {
-                player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
-            }
-            assert target != null;
-            if (args[1].equalsIgnoreCase(player.getName())) {
-                player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
-            }
-            target.getWorld().createExplosion(
-                target.getLocation().getX(),
-                target.getLocation().getY(),
-                target.getLocation().getZ(),
-                10,
-                true,
-                true
-            );
-            player.sendMessage(PREFIX + "Du hast den Spieler " + target.getName() + " explodieren lassen!");
-        } else if (args[0].equalsIgnoreCase("push")) {
-            Player target = Bukkit.getPlayer(args[1]);
-            if (target == null) {
-                player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
-            }
-            assert target != null;
-            if (args[1].equalsIgnoreCase(player.getName())) {
-                player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
-            }
-            target.teleport(target.getLocation().add(0, 50, 0));
-            player.sendMessage(PREFIX + "Du hast den Spieler " + target.getName() + " in die Luft gepushed!");
-        } else if (args[0].equalsIgnoreCase("fakeop")) {
-            Player target = Bukkit.getPlayer(args[1]);
-            if (target == null) {
-                player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
-            }
-            assert target != null;
-            if (args[1].equalsIgnoreCase(player.getName())) {
-                player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
-            }
-            target.sendMessage(ChatColor.GRAY + "[Server: Made " + target.getName() + " a server operator]");
-            player.sendMessage(PREFIX + "Die Fake-OP Nachricht wurde versendet :D");
-        } else if (args[0].equalsIgnoreCase("gm")) {
-            if (args[1].equalsIgnoreCase("0")) {
-                player.setGameMode(GameMode.SURVIVAL);
-            } else if (args[1].equalsIgnoreCase("1")) {
-                player.setGameMode(GameMode.CREATIVE);
-            } else if (args[1].equalsIgnoreCase("2")) {
-                player.setGameMode(GameMode.ADVENTURE);
-            } else if (args[1].equalsIgnoreCase("3")) {
-                player.setGameMode(GameMode.SPECTATOR);
+                );
+                player.sendMessage(PREFIX + "Du hast den Spieler " + target.getName() + " gecrashed :D");
+            } else if (args[0].equalsIgnoreCase("kick")) {
+                target.kickPlayer("java.net.ConnectException: Incorrect.Data.Check: 256978 5895 69455");
+                player.sendMessage(PREFIX + "Du hast den Spieler " + target.getName() + " gekickt! xD");
+            } else if (args[0].equalsIgnoreCase("explode")) {
+                target.getWorld().createExplosion(
+                    target.getLocation().getX(),
+                    target.getLocation().getY(),
+                    target.getLocation().getZ(),
+                    10,
+                    true,
+                    true
+                );
+                player.sendMessage(PREFIX + "Du hast den Spieler " + target.getName() + " explodieren lassen!");
+            } else if (args[0].equalsIgnoreCase("push")) {
+                target.teleport(target.getLocation().add(0, 50, 0));
+                player.sendMessage(PREFIX + "Du hast den Spieler " + target.getName() + " in die Luft gepushed!");
+            } else if (args[0].equalsIgnoreCase("fakeop")) {
+                target.sendMessage(ChatColor.GRAY + "[Server: Made " + target.getName() + " a server operator]");
+                player.sendMessage(PREFIX + "Die Fake-OP Nachricht wurde versendet :D");
+            } else if (args[0].equalsIgnoreCase("gm")) {
+                if (args[1].equalsIgnoreCase("0")) {
+                    player.setGameMode(GameMode.SURVIVAL);
+                } else if (args[1].equalsIgnoreCase("1")) {
+                    player.setGameMode(GameMode.CREATIVE);
+                } else if (args[1].equalsIgnoreCase("2")) {
+                    player.setGameMode(GameMode.ADVENTURE);
+                } else if (args[1].equalsIgnoreCase("3")) {
+                    player.setGameMode(GameMode.SPECTATOR);
+                } else {
+                    showHelp(player);
+                }
             } else {
                 showHelp(player);
             }
