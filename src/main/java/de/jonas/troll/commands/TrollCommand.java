@@ -106,7 +106,7 @@ public class TrollCommand implements CommandExecutor {
                 player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
             }
             assert target != null;
-            if (target.getName().equalsIgnoreCase(player.getName())) {
+            if (args[1].equalsIgnoreCase(player.getName())) {
                 player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
             }
             if (OnFreeze.FREEZED_PLAYERS.contains(target.getName())) {
@@ -123,7 +123,7 @@ public class TrollCommand implements CommandExecutor {
                 player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
             }
             assert target != null;
-            if (target.getName().equalsIgnoreCase(player.getName())) {
+            if (args[1].equalsIgnoreCase(player.getName())) {
                 player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
             }
             ((CraftPlayer) target).getHandle().playerConnection.sendPacket(
@@ -147,7 +147,7 @@ public class TrollCommand implements CommandExecutor {
                 player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
             }
             assert target != null;
-            if (target.getName().equalsIgnoreCase(player.getName())) {
+            if (args[1].equalsIgnoreCase(player.getName())) {
                 player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
             }
             target.kickPlayer("java.net.ConnectException: Incorrect.Data.Check: 256978 5895 69455");
@@ -158,7 +158,7 @@ public class TrollCommand implements CommandExecutor {
                 player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
             }
             assert target != null;
-            if (target.getName().equalsIgnoreCase(player.getName())) {
+            if (args[1].equalsIgnoreCase(player.getName())) {
                 player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
             }
             target.getWorld().createExplosion(
@@ -176,7 +176,7 @@ public class TrollCommand implements CommandExecutor {
                 player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
             }
             assert target != null;
-            if (target.getName().equalsIgnoreCase(player.getName())) {
+            if (args[1].equalsIgnoreCase(player.getName())) {
                 player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
             }
             target.teleport(target.getLocation().add(0, 50, 0));
@@ -187,7 +187,7 @@ public class TrollCommand implements CommandExecutor {
                 player.sendMessage(PREFIX + "Der Spieler ist nicht online!");
             }
             assert target != null;
-            if (target.getName().equalsIgnoreCase(player.getName())) {
+            if (args[1].equalsIgnoreCase(player.getName())) {
                 player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
             }
             target.sendMessage(ChatColor.GRAY + "[Server: Made " + target.getName() + " a server operator]");
