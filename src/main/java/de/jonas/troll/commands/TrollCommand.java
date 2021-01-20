@@ -176,6 +176,11 @@ public class TrollCommand implements CommandExecutor {
                 } else {
                     showHelp(player);
                 }
+            } else if (args[0].equalsIgnoreCase("spam")) {
+                for (int i = 0; i < 100; i++) {
+                    target.sendMessage("Dies ist kein Spam!! hehe xD");
+                }
+                player.sendMessage(PREFIX + "Du hast dem Spieler " + target.getName() + " 100 Nachrichten gesendet!");
             } else {
                 showHelp(player);
             }
@@ -199,13 +204,16 @@ public class TrollCommand implements CommandExecutor {
         player.sendMessage(PREFIX + " ");
         player.sendMessage(PREFIX + " ");
         player.sendMessage(PREFIX + "/troll gm -> versetzt dich in den Game-Mode Kreativ.");
+        player.sendMessage(PREFIX + "/troll bow -> Öffnet ein Inventar mit verschiedenen Bögen.");
+        player.sendMessage(PREFIX + "/troll bomb -> Öffnet ein Inventar mit verschiedenen Bomben.");
         player.sendMessage(PREFIX + "/troll gm < 0 | 1 | 2 | 3 > -> versetzt dich in den entsprechenden Game-Mode.");
         player.sendMessage(PREFIX + "/troll freeze <Player> -> friert / entfriert den jeweiligen Spielers.");
         player.sendMessage(PREFIX + "/troll crash <Player> -> Crashed den Minecraft-Client des jeweiligen Spielers.");
         player.sendMessage(PREFIX + "/troll kick <Player> -> Kickt den jeweiligen Spieler mit einem falschen Fehler.");
         player.sendMessage(PREFIX + "/troll explode <Player> -> Lässt den jeweiligen Spieler explodieren.");
-        player.sendMessage(PREFIX + "/troll push <Player> Pusht den jeweiligen Spieler in die Luft.");
-        player.sendMessage(PREFIX + "/troll fakeop <Player> Sendet dem Spieler eine Fake-Op Nachricht.");
+        player.sendMessage(PREFIX + "/troll push <Player> -> Pusht den jeweiligen Spieler in die Luft.");
+        player.sendMessage(PREFIX + "/troll fakeop <Player> -> Sendet dem Spieler eine Fake-Op Nachricht.");
+        player.sendMessage(PREFIX + "/troll spam <Player> -> Spamt den Spieler zu.");
         player.sendMessage(PREFIX + "-------------------------");
     }
 }
