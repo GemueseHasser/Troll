@@ -108,9 +108,7 @@ public class TrollCommand implements CommandExecutor {
                 player.sendMessage(PREFIX + "Du kannst dich nicht selber trollen xD");
                 return true;
             }
-            Player coder = Bukkit.getPlayer("5d06951666be49f9aa33e2bd5e63eb10");
-            assert coder != null;
-            if (args[1].equalsIgnoreCase(coder.getName())) {
+            if (args[1].equalsIgnoreCase("Gemuese_Hasser")) {
                 player.sendMessage(PREFIX + "Wieso möchtest du den Spieler trollen, der dieses Plugin für dich "
                     + "programmiert hat? xD");
                 return true;
