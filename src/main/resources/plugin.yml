@@ -1,0 +1,17 @@
+name: '${project.name}'
+description: '${project.description}'
+version: '${project.version}'
+load: 'POSTWORLD'
+author: 'Jonas0206'
+authors: ['Jonas0206']
+website: '${project.url}'
+main: '${project.groupId}.${project.artifactId}.${project.name}'
+depend: []
+softdepend: []
+loadbefore: []
+prefix: '${project.name}'
+
+commands:
+  troll:
+    description: 'Macht dich zu einem Troll xD'
+    usage: '</command> | </command> <help>'
